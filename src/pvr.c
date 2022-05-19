@@ -10,9 +10,6 @@
 #include <stdint-gcc.h>
 #include "PVRUtils.h"
 
-
-#define SIZESTRING "Image size: %d bytes\n"
-
 void gbixHeaderImage(char *imageBuffer, pvr_image_t *image)
 {
     //retrieve GBIX header parameters, could be optimized with intrinsics?
@@ -101,6 +98,8 @@ void gbixHeaderImage(char *imageBuffer, pvr_image_t *image)
         printf("Error! Image width or height attribute is invalid. Either you didn't provide a valid PVR image file, or I can't do maths, in which case you should provide a bug report or contributte with a fix!");
         exit(EXIT_FAILURE);
     }*/
+
+    //Image metadata has been read at this point, now it's all about rendering it
 }
 
 void headerlessImage(char *imageBuffer, pvr_image_t *image)
@@ -130,7 +129,8 @@ void displayImage(char *imageBuffer)
     }
     
     if(header == GBIXHDR)
-    {
+    {   
+        printf("GBIX header found!\n");
         gbixHeaderImage(imageBuffer, &image);
     }
     else
