@@ -75,6 +75,7 @@ void gbixHeaderImage(char *imageBuffer, pvr_image_t *image)
     //to take this into account we add 2 to tthe counter to skip those unsed bytes
     pvrHdrOffset += 2;  
     currentOffset = pvrHdrOffset;
+    
     for(pvrHdrOffset; pvrHdrOffset <= currentOffset + 1; pvrHdrOffset++)
     {
         image->width = image->width << 8;
@@ -131,12 +132,16 @@ void displayImage(char *imageBuffer)
     if(header == GBIXHDR)
     {   
         printf("GBIX header found!\n");
+        image.hasGBIX = true;
         gbixHeaderImage(imageBuffer, &image);
     }
     else
     {
+        image.hasGBIX = false;
         headerlessImage(imageBuffer, &image);
     }
+
+    int imageReturn = createBitMap(&image, imageBuffer);
 
 
 }

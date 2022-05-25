@@ -1,2 +1,5 @@
 http://www.catb.org/esr/structure-packing/
 https://github.com/derplayer/ShenmueHDTools/wiki/PVR-Files
+https://developer.nvidia.com/gpugems/gpugems2/part-iii-high-quality-rendering/chapter-24-using-lookup-tables-accelerate-color
+https://people.cs.umass.edu/~liberato/courses/2018-spring-compsci365+590f/lecture-notes/05-bit-twiddling-file-formats-parsing-exif/
+https://github.com/nickworonekin/puyotools/blob/master/src/PuyoTools.Core/Textures/Pvr/PvrDataCodec.cs

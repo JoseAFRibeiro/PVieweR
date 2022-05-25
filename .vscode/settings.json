@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "*.C": "c",
-        "pvrutils.h": "c"
+        "pvrutils.h": "c",
+        "stdlib.h": "c"
     }
 }
