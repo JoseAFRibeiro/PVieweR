@@ -141,6 +141,9 @@ void displayImage(char *imageBuffer)
         headerlessImage(imageBuffer, &image);
     }
 
+    if((image.fileTypebyte1 != 0x05) || (image.fileTypebyte1 != 0x06))
+        printf("This image type doesn't include a color map\n");
+        
     int imageReturn = createBitMap(&image, imageBuffer);
 
 

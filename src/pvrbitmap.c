@@ -3,33 +3,39 @@
 #include <stdio.h>
 #include "PVRUtils.h"
 
+int colorMappedImage()
+ {
+
+     return 0;
+ }
+
+
+ int bitmapImage()
+ {
+
+     return 0;
+ }
+
 int createBitMap(pvr_image_t *image, char *imageBuffer)
 {   
-    char CLUT[1024];
+    //Ok, not all images have color maps, which was why I wasn't going anywhere
+    //Instead  only two image types use them, the rest are bit maps of sorts (not sure if it is the correct term)    
 
-    uint16_t i;
-    int j;
-
-    if(image->hasGBIX == true)
+    switch (image->fileTypebyte1)
     {
-        memcpy(CLUT, imageBuffer + GBIXCLUT, sizeof CLUT);
-
-        j = 1024 + GBIXCLUT;
+    case 0x05:
         
-        while(imageBuffer[j] != ('\0' || EOF))
-        {
-            j++;
-        }
+        colorMappedImage();
+        break;
+    
+    case 0x06:
+        
+        colorMappedImage();
+        break;
+    default:
 
-        printf("There are %d blocks\r");
-
-    }else if (image->hasGBIX == false)
-    {
-        memcpy(CLUT, imageBuffer + PVRCLUT, sizeof CLUT);
-
+        bitmapImage();
+        break;
     }
-    
-    
 
-    
-}
+} 

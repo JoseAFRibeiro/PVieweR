@@ -14,8 +14,6 @@
 #define GBIXCLUT 0x20
 /***
  * same thing but for files without the GBIX header
- * TODO: actually gigve a value to the definition of headerless images
- * 
  ***/
 #define PVRCLUT 0x10
 
