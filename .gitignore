@@ -54,3 +54,4 @@ dkms.conf
 #random files
 res/PVRViewer.exe
 res/PVRViewer.ini
+*.json
