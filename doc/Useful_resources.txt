@@ -4,3 +4,5 @@ https://developer.nvidia.com/gpugems/gpugems2/part-iii-high-quality-rendering/ch
 https://people.cs.umass.edu/~liberato/courses/2018-spring-compsci365+590f/lecture-notes/05-bit-twiddling-file-formats-parsing-exif/
 https://github.com/nickworonekin/puyotools/blob/master/src/PuyoTools.Core/Textures/Pvr/PvrDataCodec.cs
 https://homepages.inf.ed.ac.uk/rbf/HIPR2/colmap.htm
+https://stackoverflow.com/questions/42405420/how-to-draw-a-single-pixel-in-opengl
+https://github.com/amengol/MinGL

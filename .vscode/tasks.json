@@ -8,10 +8,15 @@
                 "-fdiagnostics-color=always",
                 "-g",
                 "${cwd}\\src\\*.c",
+                "${cwd}/src/gl/*.c",
                 "-o",
                 "${cwd}\\bin\\main.exe",
                 "-I",
-                "${workspaceFolder}/include"
+                "${workspaceFolder}/include",
+                "-L",
+                "${cwd}/lib",
+                "-l",
+                "glfw3"
             ],
             "options": {
                 

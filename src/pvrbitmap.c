@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
+#include <glutils.h>
 #include "PVRUtils.h"
 
 int colorMappedImage()
@@ -37,5 +38,6 @@ int createBitMap(pvr_image_t *image, char *imageBuffer)
         bitmapImage();
         break;
     }
+
 
 } 

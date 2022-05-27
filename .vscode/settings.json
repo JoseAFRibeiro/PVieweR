@@ -2,6 +2,7 @@
     "files.associations": {
         "*.C": "c",
         "pvrutils.h": "c",
-        "stdlib.h": "c"
+        "stdlib.h": "c",
+        "glfw3.h": "c"
     }
 }

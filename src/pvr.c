@@ -4,11 +4,13 @@
  * boolean operations, and I feel it is easier to keep track 
  * of where you are 
  */
+#define GLFW_DLL
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 #include <stdint-gcc.h>
 #include "PVRUtils.h"
+#include <glutils.h>
 
 void gbixHeaderImage(char *imageBuffer, pvr_image_t *image)
 {
@@ -110,6 +112,14 @@ void headerlessImage(char *imageBuffer, pvr_image_t *image)
 
 void displayImage(char *imageBuffer)
 {
+    //Split sttartting OpenGL and reading the image into two threads
+
+    //start opengl
+    GLFWwindow *winptr = NULL;
+    GLuint sProgram;
+
+    glMain(winptr, &sProgram);
+
     //check for GBIX header, could be optimized with intrinsics?
 
     pvr_image_t image;
@@ -146,5 +156,7 @@ void displayImage(char *imageBuffer)
         
     int imageReturn = createBitMap(&image, imageBuffer);
 
+
+    glfwTerminate();
 
 }
