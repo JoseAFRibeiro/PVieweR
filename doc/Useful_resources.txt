@@ -6,3 +6,5 @@ https://github.com/nickworonekin/puyotools/blob/master/src/PuyoTools.Core/Textur
 https://homepages.inf.ed.ac.uk/rbf/HIPR2/colmap.htm
 https://stackoverflow.com/questions/42405420/how-to-draw-a-single-pixel-in-opengl
 https://github.com/amengol/MinGL
+https://stackoverflow.com/questions/30488155/opengl-fastest-way-to-draw-2d-image
+http://gamedev.allusion.net/softprj/twiddle.c

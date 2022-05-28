@@ -4,38 +4,40 @@
 #include <glutils.h>
 #include "PVRUtils.h"
 
-int colorMappedImage()
+int colorMappedImage(GLint location, pvr_image_t *image)
  {
 
      return 0;
  }
 
 
- int bitmapImage()
+ int bitmapImage(GLint location, pvr_image_t *image)
  {
-
+     
      return 0;
  }
 
-int createBitMap(pvr_image_t *image, char *imageBuffer)
+int createBitMap(pvr_image_t *image, char *imageBuffer, GLuint shaderp)
 {   
     //Ok, not all images have color maps, which was why I wasn't going anywhere
     //Instead  only two image types use them, the rest are bit maps of sorts (not sure if it is the correct term)    
+
+    GLint uniLocation = glGetUniformLocation(shaderp, "inColor");
 
     switch (image->fileTypebyte1)
     {
     case 0x05:
         
-        colorMappedImage();
+        colorMappedImage(uniLocation, image);
         break;
     
     case 0x06:
         
-        colorMappedImage();
+        colorMappedImage(uniLocation, image);
         break;
     default:
 
-        bitmapImage();
+        bitmapImage(uniLocation, image);
         break;
     }
 

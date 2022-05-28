@@ -13,8 +13,8 @@ char *readFile(char *path)
 
     if(image == NULL)
     {
-        printf("File not found!\n");
-        return NULL;
+        printf("File not found!\n Please provide a valid file path!");
+        exit(EXIT_FAILURE);
     }
 
     fseek(image, 0, SEEK_END);

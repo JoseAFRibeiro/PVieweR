@@ -1,5 +1,6 @@
-#include <glutils.h>
-#include <PVRUtils.h>
+#include <stdio.h>
+#include "glutils.h"
+#include "PVRUtils.h"
 
 
 void framebuffer_size_callback(GLFWwindow *win, GLint width, GLint height)

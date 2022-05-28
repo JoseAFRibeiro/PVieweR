@@ -121,9 +121,17 @@ void displayImage(char *imageBuffer)
     glMain(winptr, &sProgram);
 
     //check for GBIX header, could be optimized with intrinsics?
+    const char *imageTypes[] = {
+        "ARGB1555", 
+        "RGB565", 
+        "ARGB4444", 
+        "YUV442", 
+        "Bump", 
+        "RGB4BIT", 
+        "RGB8BIT"
+    };
 
     pvr_image_t image;
-
     image.fileTypebyte1 = 0;
     image.fileTypebyte2 = 0;
     image.height = 0;
@@ -151,10 +159,12 @@ void displayImage(char *imageBuffer)
         headerlessImage(imageBuffer, &image);
     }
 
-    if((image.fileTypebyte1 != 0x05) || (image.fileTypebyte1 != 0x06))
+    /*if((image.fileTypebyte1 != 0x05) || (image.fileTypebyte1 != 0x06))
         printf("This image type doesn't include a color map\n");
-        
-    int imageReturn = createBitMap(&image, imageBuffer);
+    */
+
+    printf("Valid image found! Image type: %s", imageTypes[image.fileTypebyte1]);    
+    int imageReturn = createBitMap(&image, imageBuffer, sProgram);
 
 
     glfwTerminate();
