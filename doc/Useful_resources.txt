@@ -8,3 +8,5 @@ https://stackoverflow.com/questions/42405420/how-to-draw-a-single-pixel-in-openg
 https://github.com/amengol/MinGL
 https://stackoverflow.com/questions/30488155/opengl-fastest-way-to-draw-2d-image
 http://gamedev.allusion.net/softprj/twiddle.c
+https://dcemulation.org/phpBB/viewtopic.php?t=104962
+https://dcemulation.org/index.php?title=Texture_Formats
