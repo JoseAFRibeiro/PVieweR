@@ -8,21 +8,29 @@ void framebuffer_size_callback(GLFWwindow *win, GLint width, GLint height)
     glViewport(0, 0, width, height);
 }
 
+void key_callback(GLFWwindow *win, int key, int scancode, int action, int mods)
+{
+    if(key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
+    {
+        glfwSetWindowShouldClose(win, GLFW_TRUE);
+    }
+}
+
 int glMain(GLFWwindow *win, GLuint *shaderProgram)
 {
     const char* vertexSource = "#version 440 core\n"
-    "layout (location = 0 ) in vec3 aPos;\n"
+    "layout (location = 0) in vec3 aPos;\n"
     "void main()\n"
     "{\n"
-    " gl_Position = vec4(aPos.x, aPos.y,  aPos.z, 1.0);"
+    "   gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
     "}\0";
 
     const char* fragmentSource = "#version 440 core\n"
     "out vec4 FragColor;\n"
-    "uniform vec4 inColor;"
+    "uniform vec4 inColor;\n"
     "void main()\n"
     "{\n"
-    " FragColor = inColor;"
+    " FragColor = inColor;\n"
     "}\0";
 
 	float vertices[] = {
@@ -36,21 +44,16 @@ int glMain(GLFWwindow *win, GLuint *shaderProgram)
     
     GLuint VAO, VBO, vShader, fShader;
     char compilationStatus;
-
-    if(!glfwInit())
-        return 1;
-    
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 4);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-
-    win = glfwCreateWindow(800, 600, "DreamViewer", NULL, NULL);
-    glfwMakeContextCurrent(win);
-    glfwSetFramebufferSizeCallback(win, framebuffer_size_callback);
+    char log[2048];
 
     if(win == NULL)
         return 2;
+
+    glfwSetFramebufferSizeCallback(win, framebuffer_size_callback);
+    glfwSetKeyCallback(win, key_callback);
+    glfwMakeContextCurrent(win);
     
+
     if(!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
         return 3;
 
@@ -64,25 +67,25 @@ int glMain(GLFWwindow *win, GLuint *shaderProgram)
     glBindVertexArray(0);
 
     vShader = glCreateShader(GL_VERTEX_SHADER);
-    glShaderSource(vertexSource, 1, &vertexSource, NULL);
+    glShaderSource(vShader, 1, &vertexSource, NULL);
     glCompileShader(vShader);
 
     glGetShaderiv(vShader, GL_COMPILE_STATUS, &compilationStatus);
 
     if(!compilationStatus)
     {
-        printf("Vertex shader compilation error");
+        printf("Vertex shader compilation error\n");
     }
 
     fShader = glCreateShader(GL_FRAGMENT_SHADER) ;
-    glShaderSource(fragmentSource, 1, &fragmentSource, NULL);
+    glShaderSource(fShader, 1, &fragmentSource, NULL);
     glCompileShader(fShader);
 
     glGetShaderiv(fShader, GL_COMPILE_STATUS, &compilationStatus);
 
     if(!compilationStatus)
     {
-        printf("Fragment shader compilation error");
+        printf("Fragment shader compilation error\n");
     }
 
     shaderProgram = glCreateProgram();
@@ -92,10 +95,13 @@ int glMain(GLFWwindow *win, GLuint *shaderProgram)
 
     glGetProgramiv(shaderProgram, GL_LINK_STATUS, &compilationStatus);
     if(!compilationStatus)
-    {
-        printf("Error compile shader program");
+    {   
+        glGetProgramInfoLog(shaderProgram, 2048, NULL, log);
+        printf("Error compiling shader program\n %s", log);
     }
-
+    glDeleteShader(vShader);
+    glDeleteShader(fShader);
+    
     return 0;
 }
 

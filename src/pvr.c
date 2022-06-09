@@ -115,8 +115,17 @@ void displayImage(char *imageBuffer)
     //Split sttartting OpenGL and reading the image into two threads
 
     //start opengl
-    GLFWwindow *winptr = NULL;
+    GLFWwindow *winptr;
     GLuint sProgram;
+
+    if(!glfwInit())
+        return 1;
+    
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 4);
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+
+    winptr = glfwCreateWindow(800, 600, "DreamViewer", NULL, NULL);
 
     glMain(winptr, &sProgram);
 
@@ -164,7 +173,7 @@ void displayImage(char *imageBuffer)
     */
 
     printf("Valid image found! Image type: %s", imageTypes[image.fileTypebyte1]);    
-    int imageReturn = createBitMap(&image, imageBuffer, sProgram);
+    int imageReturn = createBitMap(&image, imageBuffer, sProgram, winptr);
 
 
     glfwTerminate();

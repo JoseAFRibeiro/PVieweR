@@ -34,11 +34,8 @@ typedef struct pvr_image
     bool hasGBIX;
 }pvr_image_t;
 
-extern uint16_t *texture_ptr;
-extern char *buffer;
-
 void displayImage(char *imageBuffer);
-int createBitMap(pvr_image_t *image, char *imageBuffer, GLuint shaderp);
-void detwiddle( int x1, int y1, int size);
+int createBitMap(pvr_image_t *image, char *imageBuffer, GLuint shaderp, GLFWwindow *win);
+void detwiddle( int x1, int y1, int size, uint16_t *texture_ptr, char *texBuffer);
 
 #endif /* E0C1BC5B_4475_4834_AB52_9176F838419B */
