@@ -6,7 +6,7 @@ char *readFile(char *path)
 {
 
     FILE *image;
-    uint16_t imageSize;
+    long long imageSize;
     char *buffer;
 
     image = fopen(path, "rb");
@@ -28,6 +28,8 @@ char *readFile(char *path)
         return NULL;
     }
     
-    fread(buffer, sizeof(char), imageSize, image);
+    size_t result = fread(buffer, sizeof(char), imageSize, image);
+    fclose(image);
+    printf("buffer: \n %s\n", buffer);
     return buffer;   
 }

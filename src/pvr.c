@@ -67,7 +67,6 @@ void gbixHeaderImage(char *imageBuffer, pvr_image_t *image)
         //maybe I'm starting at the wrong position?
     }
 
-    
     //Image type 
  
     image->fileTypebyte1 = imageBuffer[pvrHdrOffset++];
