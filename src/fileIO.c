@@ -30,6 +30,6 @@ char *readFile(char *path)
     
     size_t result = fread(buffer, sizeof(char), imageSize, image);
     fclose(image);
-    printf("buffer: \n %s\n", buffer);
+    
     return buffer;   
 }

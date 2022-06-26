@@ -3,6 +3,7 @@
         "*.C": "c",
         "pvrutils.h": "c",
         "stdlib.h": "c",
-        "glfw3.h": "c"
+        "glfw3.h": "c",
+        "stdio.h": "c"
     }
 }

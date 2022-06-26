@@ -26,33 +26,30 @@ void detwiddle( int x1, int y1, int size, uint16_t *texture_ptr, char *texBuffer
 int ptr = 0;
 int imgsize = 0;
 char *twiddled = NULL;
-char *detwiddled = NULL;
+unsigned int *detwiddled = NULL;
 
 
 unsigned short read_pixel() {
 	return twiddled[ptr++];
 }
 
-void subdivide_and_move(int x1, int y1, int size, int op) {
-	if (size == 1) {
-		if (op == 0) {		/* Decode */
-			detwiddled[y1*imgsize+x1] = read_pixel();
-		} else {		/* Encode */
-			//write_pixel(detwiddled[y1*imgsize+x1]);
-		}
+void subdivide_and_move(int x1, int y1, int size) {
+	if (size == 1) 
+    {
+	    detwiddled[y1*imgsize+x1] = read_pixel();
+
 	} else {
 		int ns = size/2;
-		subdivide_and_move(x1, y1, ns, op);
-		subdivide_and_move(x1, y1+ns, ns, op);
-		subdivide_and_move(x1+ns, y1, ns, op);
-		subdivide_and_move(x1+ns, y1+ns, ns, op);
+		subdivide_and_move(x1, y1, ns);
+		subdivide_and_move(x1, y1+ns, ns);
+		subdivide_and_move(x1+ns, y1, ns);
+		subdivide_and_move(x1+ns, y1+ns, ns);
 	}
 }
-char *detwiddle(int x1, int y1, int size, char *imgBuffer)
+unsigned int *detwiddle(int x1, int y1, int size, char *imgBuffer)
 {
-
     twiddled = imgBuffer;
     detwiddled = malloc( size * size * 2);
-    subdivide_and_move(x1, y1, size, 0);   
+    subdivide_and_move(x1, y1, size);   
     return detwiddled;
 }

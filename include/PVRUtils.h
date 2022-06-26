@@ -35,7 +35,7 @@ typedef struct pvr_image
 }pvr_image_t;
 
 void displayImage(char *imageBuffer);
-int createBitMap(pvr_image_t *image, char *imageBuffer, GLuint shaderp, GLFWwindow *win);
-char *detwiddle(int x1, int y1, int size, char *imgBuffer);
+int createBitMap(pvr_image_t *image, char *imageBuffer);
+unsigned int *detwiddle(int x1, int y1, int size, char *imgBuffer);
 
 #endif /* E0C1BC5B_4475_4834_AB52_9176F838419B */

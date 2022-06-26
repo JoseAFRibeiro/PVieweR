@@ -5,57 +5,49 @@
 #include "PVRUtils.h"
 
 char *buffer;
-char *tex;
+unsigned int *headerlessBuff;
+unsigned int *tex;
 
-int colorMappedImage(GLint location, pvr_image_t *image, GLFWwindow *win)
+int colorMappedImage(pvr_image_t *image)
  {
 
      return 0;
  }
 
- int bitmapImage(GLint location, pvr_image_t *image, GLFWwindow *win)
- {  
-     int i = 0;
-     int j = 0;
+int bitmapImage(pvr_image_t* image)
+{
+    int i = 0;
+    int j = 0;
 
-     tex = detwiddle(0,0, image->height, buffer);
+    tex = detwiddle(0, 0, image->height, buffer);
 
-     while(!glfwWindowShouldClose(win))
-     {
+    return 0;
+}
 
-         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-         glClear(GL_COLOR_BUFFER_BIT);
-
-        glfwSwapBuffers(win);
-        glfwPollEvents();
-     }
-     return 0;
- }
-
-int createBitMap(pvr_image_t *image, char *imageBuffer, GLuint shaderp, GLFWwindow *win)
+int createBitMap(pvr_image_t *image, char *imageBuffer)
 {   
     //Ok, not all images have color maps, which was why I wasn't going anywhere
     //Instead  only two image types use them, the rest are bit maps of sorts (not sure if it is the correct term)    
 
-    GLint uniLocation = glGetUniformLocation(shaderp, "inColor");
     buffer = imageBuffer;
     switch (image->fileTypebyte1)
     {
     case 0x05:
         
-        colorMappedImage(uniLocation, image, win);
+        colorMappedImage(image);
         break;
     
     case 0x06:
         
-        colorMappedImage(uniLocation, image, win);
+        colorMappedImage(image);
         break;
     default:
 
-        bitmapImage(uniLocation, image, win);
+        bitmapImage(image);
         break;
     }
 
-    glDeleteProgram(shaderp);
+    glMain(tex);
+
     return 0;
 } 
