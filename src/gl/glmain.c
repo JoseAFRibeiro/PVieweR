@@ -2,7 +2,6 @@
 #include "stb_image.h"
 #include <stdio.h>
 #include "glutils.h"
-#include "PVRUtils.h"
 
 void framebuffer_size_callback(GLFWwindow *win, GLint width, GLint height)
 {
@@ -17,8 +16,16 @@ void key_callback(GLFWwindow *win, int key, int scancode, int action, int mods)
     }
 }
 
-int glMain(int *buffer)
+void GLAPIENTRY messageCallBack(GLenum source, GLenum type, GLenum id, GLenum severity,
+                                GLsizei length, const GLchar *message, const void *userParam)
 {
+    printf("GL CALLBACK: %s type = 0x%x, severity = 0x%x, message = %s\n",
+           ( type == GL_DEBUG_TYPE_ERROR ? "** GL ERROR **" : "" ),
+            type, severity, message);
+}
+
+int glMain(int *buffer , pvr_image_t *image)
+{ 
     const char* vertexSource = "#version 440 core\n"
     "layout (location = 0) in vec3 aPos;\n"
     "layout (location = 1) in vec2 inTexCoord;\n"
@@ -54,7 +61,7 @@ int glMain(int *buffer)
         1,2,3
     };
 
-    int VAO, VBO, EBO, vShader, fShader;
+    int VAO, VBO, EBO, vShader, fShader, texture;
     char compilationStatus;
     char log[2048];
 
@@ -78,7 +85,10 @@ int glMain(int *buffer)
     if(!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
         return 3;
 
-#pragma region Shader compilation
+    glEnable(GL_DEBUG_OUTPUT);
+    glDebugMessageCallback(messageCallBack, 0);
+
+
 
     vShader = glCreateShader(GL_VERTEX_SHADER);
     glShaderSource(vShader, 1, &vertexSource, NULL);
@@ -117,7 +127,6 @@ int glMain(int *buffer)
     glDeleteShader(fShader);
     
     glUseProgram(shaderProgram);
-#pragma endregion
 
     glGenVertexArrays(1, &VAO);
     glGenBuffers(1, &VBO);
@@ -137,8 +146,8 @@ int glMain(int *buffer)
     glEnableVertexAttribArray(1);
 
 
-    int width, height, channels, texture;
-    unsigned char *data = stbi_load("C:\\Users\\Casa\\Desktop\\programas\\C\\PVieweR\\res\\wall.jpg", &width, &height, &channels, 0);
+    //int width, height, channels;
+    //unsigned char *data = stbi_load("C:\\Users\\Casa\\Desktop\\programas\\C\\PVieweR\\res\\wall.jpg", &width, &height, &channels, 0);
 
     glGenTextures(1, &texture);
     glBindTexture(GL_TEXTURE_2D, texture);
@@ -147,11 +156,11 @@ int glMain(int *buffer)
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
-    //glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, image->width, image->height, 0, GL_RGB565, GL_UNSIGNED_INT, tex);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, image->width, image->height, 0, GL_RGB565, GL_UNSIGNED_INT, buffer);
+    //glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
     glGenerateMipmap(GL_TEXTURE_2D);
     
-    stbi_image_free(data);
+    //stbi_image_free(data);
     //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
     while (!glfwWindowShouldClose(winptr))
     {

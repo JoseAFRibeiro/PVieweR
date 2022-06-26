@@ -2,12 +2,17 @@
 #include <stdio.h>
 #include <stdint.h>
 
-char *readFile(char *path)
+char *readFile(char *path, char *header)
 {
-
+    /**
+     * TODO: arranjar uma maneira de separar o header 
+     * dos dados da imagem em si
+     */
     FILE *image;
     long long imageSize;
     char *buffer;
+
+    header = malloc(30 * sizeof (char));
 
     image = fopen(path, "rb");
 
@@ -29,6 +34,8 @@ char *readFile(char *path)
     }
     
     size_t result = fread(buffer, sizeof(char), imageSize, image);
+    size_t result = fread(header, sizeof(char), 30, image);
+
     fclose(image);
     
     return buffer;   

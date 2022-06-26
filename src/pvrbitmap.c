@@ -47,7 +47,7 @@ int createBitMap(pvr_image_t *image, char *imageBuffer)
         break;
     }
 
-    glMain(tex);
+    glMain(tex, image);
 
     return 0;
 } 
